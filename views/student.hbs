@@ -1,11 +1,11 @@
 <div class="row">
     <main class="col-md-12">
         <br>
-        <h2>{{student.firstName}} {{student.lastName}} - Student: {{student.studentNum}}</h2>
+        <h2>{{viewData.student.firstName}} {{viewData.student.lastName}} - Student: {{viewData.student.studentNum}}</h2>
         <hr />
 
         <form method="post" action="/student/update">
-            <input type="hidden" name="studentNum" value="{{student.studentNum}}" />
+            <input type="hidden" name="studentNum" value="{{viewData.student.studentNum}}" />
 
             <fieldset>
                 <legend>Personal Information</legend>
@@ -13,13 +13,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>First Name:</label>
-                            <input class="form-control" name="firstName" type="text" value="{{student.firstName}}" />
+                            <input class="form-control" name="firstName" type="text" value="{{viewData.student.firstName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Last Name:</label>
-                            <input class="form-control" name="lastName" type="text" value="{{student.lastName}}" />
+                            <input class="form-control" name="lastName" type="text" value="{{viewData.student.lastName}}" />
                         </div>
                     </div>
                 </div>
@@ -30,14 +30,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Email:</label>
-                        <input class="form-control" name="email" type="email" value="{{student.email}}" />
+                        <input class="form-control" name="email" type="email" value="{{viewData.student.email}}" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Address (Street):</label>
                         <input class="form-control" name="addressStreet" type="text"
-                            value="{{student.addressStreet}}" />
+                            value="{{viewData.student.addressStreet}}" />
                     </div>
                 </div>
             </div>
@@ -47,20 +47,20 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Address (City):</label>
-                        <input class="form-control" name="addressCity" type="text" value="{{student.addressCity}}" />
+                        <input class="form-control" name="addressCity" type="text" value="{{viewData.student.addressCity}}" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Address (Province):</label>
                         <input class="form-control" name="addressProvince" type="text"
-                            value="{{student.addressProvince}}" />
+                            value="{{viewData.student.addressProvince}}" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>TA:</label>
-                        <input type="checkbox" name="TA" value="1" {{#if student.TA}}checked{{/if}}>
+                        <input type="checkbox" name="TA" value="1" {{#if viewData.student.TA}}checked{{/if}}>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                             <label>Status:</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" id="fullTime"
-                                    value="Full Time" {{#equal student.status "Full Time" }}checked{{/equal}}>
+                                    value="Full Time" {{#equal viewData.student.status "Full Time" }}checked{{/equal}}>
                                 <label class="form-check-label" for="fullTime">
                                     Full Time
                                 </label>
@@ -81,7 +81,7 @@
                             <br>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" id="partTime"
-                                    value="Part Time" {{#equal student.status "Part Time" }}checked{{/equal}}>
+                                    value="Part Time" {{#equal viewData.student.status "Part Time" }}checked{{/equal}}>
                                 <label class="form-check-label" for="partTime">
                                     Part Time
                                 </label>
@@ -91,19 +91,17 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Course Type:</label>
-                            <select class="form-control" name="course">
-                                <option value="1" {{#equal student.course "1" }}selected{{/equal}}>Course 1</option>
-                                <option value="2" {{#equal student.course "2" }}selected{{/equal}}>Course 2</option>
-                                <option value="3" {{#equal student.course "3" }}selected{{/equal}}>Course 3</option>
-                                <option value="4" {{#equal student.course "4" }}selected{{/equal}}>Course 4</option>
-                                <option value="5" {{#equal student.course "5" }}selected{{/equal}}>Course 5</option>
-                                <option value="6" {{#equal student.course "6" }}selected{{/equal}}>Course 6</option>
-                                <option value="7" {{#equal student.course "7" }}selected{{/equal}}>Course 7</option>
-                                <option value="8" {{#equal student.course "8" }}selected{{/equal}}>Course 8</option>
-                                <option value="9" {{#equal student.course "9" }}selected{{/equal}}>Course 9</option>
-                                <option value="10" {{#equal student.course "10" }}selected{{/equal}}>Course 10</option>
-                                <option value="11" {{#equal student.course "11" }}selected{{/equal}}>Course 11</option>
-                            </select>
+                            {{#if viewData.courses}}
+                                <select class="form-control" name="course" id="course">
+                                    <option value="">Select Course</option>
+                            {{#each viewData.courses}}
+                                    <option value="{{courseId}}" {{#if selected}} selected {{/if}} >{{courseCode}} </option>
+                                {{/each}}
+                                </select>
+                            {{else}}
+                                <div>No Courses</div>
+                            {{/if}}
+
                         </div>
                     </div>
                 </div>
